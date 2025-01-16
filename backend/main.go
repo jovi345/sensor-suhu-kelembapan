@@ -9,6 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jovi345/sensor-suhu-kelembapan/handler"
 	sensordata "github.com/jovi345/sensor-suhu-kelembapan/sensor_data"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -37,7 +38,18 @@ func main() {
 	http.HandleFunc("/api/v1/data/add", sensorDataHandler.InsertData)
 	http.HandleFunc("/api/v1/data/get", sensorDataHandler.GetAllData)
 
-	err = http.ListenAndServe(":8080", nil)
+	corsOptions := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173"},
+		AllowedMethods:   []string{"GET", "POST"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		ExposedHeaders:   []string{"Content-Length"},
+		AllowCredentials: true,
+		Debug:            true,
+	})
+
+	handlerWithCORS := corsOptions.Handler(http.DefaultServeMux)
+
+	err = http.ListenAndServe(":8080", handlerWithCORS)
 	if err != nil {
 		log.Fatal("Server: Failed to run!")
 	}
