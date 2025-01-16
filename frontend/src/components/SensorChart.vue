@@ -19,13 +19,7 @@ export default {
         data: [
           {
             type: "line",
-            dataPoints: [
-              { label: "apple", y: 10 },
-              { label: "orange", y: 15 },
-              { label: "banana", y: 25 },
-              { label: "mango", y: 30 },
-              { label: "grape", y: 28 },
-            ],
+            dataPoints: [],
           },
         ],
       },
@@ -39,7 +33,7 @@ export default {
 
       this.options.data[0].dataPoints.push(newData);
 
-      if (this.options.data[0].dataPoints.length > 10000) {
+      if (this.options.data[0].dataPoints.length > 10) {
         this.options.data[0].dataPoints.shift();
       }
 
@@ -50,16 +44,36 @@ export default {
 
     async getData() {
       try {
-        const response = await fetch("http://localhost:8080/api/data/get");
-        console.log(response);
+        const response = await fetch("http://localhost:8080/api/v1/data/get");
+        const datas = await response.json();
+        datas.forEach((data) => {
+          const time = data.created_at;
+          const hour = new Date(time).getHours();
+          const minute = new Date(time).getMinutes();
+          const second = new Date(time).getSeconds();
+
+          const timestamp = `${hour}:${minute}:${second}`;
+          const firstTemp = data.first_temperature;
+
+          const newData = { label: timestamp, y: firstTemp };
+          this.options.data[0].dataPoints.push(newData);
+
+          if (this.options.data[0].dataPoints.length > 10) {
+            this.options.data[0].dataPoints.shift();
+          }
+
+          if (this.$refs.chart && this.$refs.chart.chart) {
+            this.$refs.chart.chart.render();
+          }
+        });
       } catch (error) {
         console.error(error);
       }
     },
   },
   mounted() {
-    setInterval(this.addRandomData, 3000);
-    setInterval(this.getData, 3000);
+    // setInterval(this.addRandomData, 30000);
+    this.getData();
   },
 };
 </script>
