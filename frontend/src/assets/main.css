@@ -4,3 +4,10 @@
   padding: 2rem;
   font-weight: normal;
 }
+
+.room {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 12vh;
+}

@@ -1,11 +1,7 @@
 <template>
-  <div class="room">
-    <RoomTemperature />
-    <RoomHumidity />
-  </div>
-  <div>
-    <ObjectTemperature />
-  </div>
+  <RoomTemperature />
+  <RoomHumidity />
+  <ObjectTemperature />
 </template>
 
 <script>
@@ -21,12 +17,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.room {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-bottom: 64px;
-}
-</style>

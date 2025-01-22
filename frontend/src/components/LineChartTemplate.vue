@@ -34,6 +34,7 @@ export default {
         zoomEnabled: true,
         title: {
           text: this.title,
+          fontSize: 22,
         },
         axisX: {
           title: this.axisXTitle,
