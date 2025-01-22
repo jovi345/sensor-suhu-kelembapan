@@ -21,15 +21,15 @@ func NewRepository(db *sql.DB) *repository {
 func (r *repository) Save(data SensorData) (SensorData, error) {
 	query := `
 		INSERT INTO sensor_data 
-		(first_temperature, second_temperature, humidity, created_at)
+		(room_temperature, object_temperature, humidity, created_at)
 		VALUES (?, ?, ?, ?)
 	`
 
 	result, err := r.db.ExecContext(
 		context.Background(),
 		query,
-		data.FirstTemperature,
-		data.SecondTemperature,
+		data.RoomTemperature,
+		data.ObjectTemperature,
 		data.Humidity,
 		data.CreatedAt,
 	)
@@ -60,8 +60,8 @@ func (r *repository) GetAll() ([]SensorData, error) {
 		var data SensorData
 		err = rows.Scan(
 			&data.ID,
-			&data.FirstTemperature,
-			&data.SecondTemperature,
+			&data.RoomTemperature,
+			&data.ObjectTemperature,
 			&data.Humidity,
 			&data.CreatedAt,
 		)

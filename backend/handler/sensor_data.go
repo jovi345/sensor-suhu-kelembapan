@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 
 	sensordata "github.com/jovi345/sensor-suhu-kelembapan/sensor_data"
@@ -37,6 +38,8 @@ func (h *sensorDataHandler) InsertData(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+
+	log.Print("Data successfully added...")
 
 	utils.WriteJSON(w, http.StatusCreated, result)
 }

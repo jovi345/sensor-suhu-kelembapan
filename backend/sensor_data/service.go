@@ -19,8 +19,8 @@ func NewService(repository Repository) *service {
 
 func (s *service) InsertData(input SensorDataInput) (SensorData, error) {
 	data := SensorData{
-		FirstTemperature:  input.FirstTemperature,
-		SecondTemperature: input.SecondTemperature,
+		RoomTemperature:   input.RoomTemperature,
+		ObjectTemperature: input.ObjectTemperature,
 		Humidity:          input.Humidity,
 		CreatedAt:         time.Now(),
 	}

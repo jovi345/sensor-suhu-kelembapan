@@ -39,12 +39,12 @@ func main() {
 	http.HandleFunc("/api/v1/data/get", sensorDataHandler.GetAllData)
 
 	corsOptions := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:5173"},
+		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST"},
 		AllowedHeaders:   []string{"Content-Type", "Authorization"},
 		ExposedHeaders:   []string{"Content-Length"},
 		AllowCredentials: true,
-		Debug:            true,
+		Debug:            false,
 	})
 
 	handlerWithCORS := corsOptions.Handler(http.DefaultServeMux)
