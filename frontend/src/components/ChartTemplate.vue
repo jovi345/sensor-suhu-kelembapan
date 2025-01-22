@@ -64,9 +64,9 @@ export default {
           const second = padZero(date.getSeconds());
 
           const timestamp = `${hour}:${minute}:${second}`;
-          const objTemp = data.object_temperature;
+          const dataInd = data[this.indicatorType];
 
-          const newData = { label: timestamp, y: objTemp };
+          const newData = { label: timestamp, y: dataInd };
           this.options.data[0].dataPoints.push(newData);
 
           if (this.options.data[0].dataPoints.length > Math.min()) {
