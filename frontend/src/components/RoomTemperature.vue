@@ -11,6 +11,7 @@
       title="Current Room Temperature"
       data-type=" °C"
       indicator-type="room_temperature"
+      :maximum="80"
     />
   </div>
 </template>

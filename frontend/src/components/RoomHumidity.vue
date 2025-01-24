@@ -11,6 +11,7 @@
       title="Current Humidity"
       data-type=" %"
       indicator-type="humidity"
+      :maximum="100"
     />
   </div>
 </template>

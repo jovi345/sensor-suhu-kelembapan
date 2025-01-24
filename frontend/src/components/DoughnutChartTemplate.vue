@@ -9,30 +9,17 @@ import { dataStore } from "@/script";
 
 export default {
   props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    indicatorType: {
-      type: String,
-      required: true,
-    },
-    dataType: {
-      type: String,
-      required: true,
-    },
+    title: { type: String, required: true },
+    indicatorType: { type: String, required: true },
+    dataType: { type: String, required: true },
+    maximum: { type: Number, required: true },
   },
   data() {
     return {
       options: {
         animationEnabled: true,
-        title: {
-          text: this.title,
-          fontSize: 22,
-        },
-        toolTip: {
-          enabled: false,
-        },
+        title: { text: this.title, fontSize: 22 },
+        toolTip: { enabled: false },
         data: [
           {
             type: "doughnut",
@@ -61,7 +48,7 @@ export default {
 
         const newData = [
           { y: indicatorType, name: "Humidity", color: "#285c99" },
-          { y: 100 - indicatorType, name: "", color: "#e0e0e0" },
+          { y: this.maximum - indicatorType, name: "", color: "#e0e0e0" },
         ];
         this.options.data[0].dataPoints = newData;
         this.options.subtitles[0].text = indicatorType + this.dataType;
@@ -74,8 +61,14 @@ export default {
       }
     },
   },
-  async beforeMount() {
-    await this.getData();
+  beforeMount() {
+    this.getData();
+  },
+
+  mounted() {
+    setInterval(() => {
+      this.getData();
+    }, 3000);
   },
 };
 </script>

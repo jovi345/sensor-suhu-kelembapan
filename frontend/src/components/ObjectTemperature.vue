@@ -11,6 +11,7 @@
       title="Current Object Temperature"
       data-type=" °C"
       indicator-type="object_temperature"
+      :maximum="250"
     />
   </div>
 </template>

@@ -17,3 +17,19 @@ export const getAllData = async () => {
     console.error(error);
   }
 };
+
+export const addNewData = async () => {
+  try {
+    const length = dataStore.getDatas().length;
+    const newData = {
+      id: length + 1,
+      room_temperature: Number(Math.floor(Math.random() * 80)),
+      object_temperature: Number(Math.floor(Math.random() * 80)),
+      humidity: Number(Math.floor(Math.random() * 80)),
+      created_at: new Date().toISOString(),
+    };
+    dataStore.datas.push(newData);
+  } catch (error) {
+    console.error(error);
+  }
+};
