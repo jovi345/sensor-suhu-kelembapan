@@ -51,6 +51,6 @@ func main() {
 
 	err = http.ListenAndServe(":8080", handlerWithCORS)
 	if err != nil {
-		log.Fatal("Server: Failed to run!")
+		log.Fatal("Server: Failed to run!\n", err)
 	}
 }
