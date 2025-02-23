@@ -68,7 +68,7 @@ export default {
   mounted() {
     setInterval(() => {
       this.getData();
-    }, 3000);
+    }, 5000);
   },
 };
 </script>

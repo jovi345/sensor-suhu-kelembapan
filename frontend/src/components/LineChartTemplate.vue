@@ -28,25 +28,29 @@ export default {
     };
   },
   methods: {
+    formatNewData(data) {
+      const time = data.created_at;
+      const date = new Date(time);
+
+      const padZero = (value) => (value < 10 ? "0" + value : value);
+      const hour = padZero(date.getHours());
+      const minute = padZero(date.getMinutes());
+      const second = padZero(date.getSeconds());
+
+      const timestamp = `${hour}:${minute}:${second}`;
+      const dataInd = data[this.indicatorType];
+
+      const newData = { label: timestamp, y: dataInd };
+      this.options.data[0].dataPoints.push(newData);
+    },
+
     async getData() {
       try {
         const datas = dataStore.getDatas();
         datas.forEach((data) => {
-          const time = data.created_at;
-          const date = new Date(time);
+          this.formatNewData(data);
 
-          const padZero = (value) => (value < 10 ? "0" + value : value);
-          const hour = padZero(date.getHours());
-          const minute = padZero(date.getMinutes());
-          const second = padZero(date.getSeconds());
-
-          const timestamp = `${hour}:${minute}:${second}`;
-          const dataInd = data[this.indicatorType];
-
-          const newData = { label: timestamp, y: dataInd };
-          this.options.data[0].dataPoints.push(newData);
-
-          if (this.options.data[0].dataPoints.length > Math.min()) {
+          if (this.options.data[0].dataPoints.length > 10) {
             this.options.data[0].dataPoints.shift();
           }
 
@@ -63,20 +67,7 @@ export default {
       try {
         const datas = dataStore.getDatas();
         const newData = datas[datas.length - 1];
-
-        const time = newData.created_at;
-        const date = new Date(time);
-
-        const padZero = (value) => (value < 10 ? "0" + value : value);
-        const hour = padZero(date.getHours());
-        const minute = padZero(date.getMinutes());
-        const second = padZero(date.getSeconds());
-
-        const timestamp = `${hour}:${minute}:${second}`;
-        const dataInd = newData[this.indicatorType];
-
-        const newDataInput = { label: timestamp, y: dataInd };
-        this.options.data[0].dataPoints.push(newDataInput);
+        this.formatNewData(newData);
 
         if (this.options.data[0].dataPoints.length > Math.min()) {
           this.options.data[0].dataPoints.shift();
@@ -98,7 +89,7 @@ export default {
   mounted() {
     setInterval(() => {
       this.updateData();
-    }, 3000);
+    }, 5000);
   },
 };
 </script>

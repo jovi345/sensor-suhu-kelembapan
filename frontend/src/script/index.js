@@ -18,15 +18,16 @@ export const getAllData = async () => {
   }
 };
 
-export const addNewData = async () => {
+export const newData = async () => {
   try {
-    const length = dataStore.getDatas().length;
+    const response = await getAllData();
+    const lastData = response[response.length - 1];
     const newData = {
-      id: length + 1,
-      room_temperature: Number(Math.floor(Math.random() * 80)),
-      object_temperature: Number(Math.floor(Math.random() * 80)),
-      humidity: Number(Math.floor(Math.random() * 80)),
-      created_at: new Date().toISOString(),
+      id: lastData.id,
+      room_temperature: lastData.room_temperature,
+      object_temperature: lastData.object_temperature,
+      humidity: lastData.humidity,
+      created_at: lastData.created_at,
     };
     dataStore.datas.push(newData);
   } catch (error) {
