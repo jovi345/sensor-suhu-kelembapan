@@ -77,3 +77,5 @@ Info: Menggunakan Mobile Hotspot akan lebih mudah untuk mendapatkan IP ini
 ```bash
 http.addHeader("Origin", "<ip_esp8266>");
 ```
+![alt text](image.png)
+
