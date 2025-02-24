@@ -69,3 +69,11 @@ Info: IP ini dapat Anda dapatkan dengan menjalankan server backend terlebih dahu
 ```bash
 ifconfig
 ```
+
+### Pada kode baris 75, ganti IP ini dengan IP ESP8266 yang telah terhubung ke WiFi Anda
+
+Info: Menggunakan Mobile Hotspot akan lebih mudah untuk mendapatkan IP ini
+
+```bash
+http.addHeader("Origin", "<ip_esp8266>");
+```
